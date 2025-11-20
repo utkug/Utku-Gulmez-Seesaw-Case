@@ -1,0 +1,46 @@
+body {
+    background-color: #071026;
+    margin: 0;
+    font-family: 'Segoe UI';
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    color: white;
+}
+
+.seesaw-playground {
+    padding: 2em;
+    background-color: #081536ff;
+    border: solid 1px #0f214cff;
+    border-radius: 30px;
+    width: 500px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+
+.seesaw-plank {
+    width: 400px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #502b04ff;
+}
+
+.seesaw-pivot {
+  width: 0; 
+  height: 0; 
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 40px solid white;
+}
