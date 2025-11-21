@@ -1,5 +1,5 @@
 body {
-    background-color: #071026;
+    background: linear-gradient(180deg,#071026 0%, #071226 100%);
     margin: 0;
     font-family: 'Segoe UI';
 }
@@ -10,17 +10,14 @@ body {
     display: flex;
     justify-content: center; 
     align-items: center;
-    flex-direction: column;
-}
-
-.title {
-    color: white;
+    gap: 10px;
 }
 
 .seesaw-playground {
+    position: relative;
     padding: 2em;
-    background-color: #081536ff;
-    border: solid 1px #0f214cff;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
     border-radius: 30px;
     width: 500px;
     height: 400px;
@@ -28,6 +25,17 @@ body {
     flex-direction: column;
     justify-content: center; 
     align-items: center;
+    box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+}
+
+.box-title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    pointer-events: none;
 }
 
 .seesaw-plank {
@@ -66,4 +74,66 @@ body {
     background-color: gold;
     border-radius: 50%;
     transform: translateX(-50%); /* center horizontally */
+}
+
+
+.side-boxes {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* spacing between two side boxes */
+    width: 300px;
+    height: 466px; /* same height as seesaw playground */
+}
+
+/* Each side box takes half of the container height */
+.side-box {
+    position: relative;
+    flex: 1; /* fills half of the container height */
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: 30px;
+}
+
+.stats {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stats-item {
+    padding: 0 15px 0 15px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.stat-title {
+    font-size: 16px;
+    color: gray;
+}
+
+.stat-value {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.history {
+    margin-top: 50px;
+    padding: 0 15px 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 160px;
+    overflow-y: auto; /* scroll for history */
+    scrollbar-color: white #071026;
+    scrollbar-width: thin;
+}
+
+.history-item {
+    color: white;
+    font-size: 14px;
+    border-left: 5px solid DarkCyan;
 }
