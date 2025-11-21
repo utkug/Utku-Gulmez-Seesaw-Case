@@ -1,15 +1,27 @@
 let totalTorque = 0
 let previewEl = null
+let rightWeight = 0
+let leftWeight = 0
 
+const history = document.getElementById("history")
 const plank = document.querySelector(".seesaw-plank")
 const rect = plank.getBoundingClientRect()
 
 const randomColorGenerator = () => '#' + Math.floor(Math.random()*16777215).toString(16)
-
+    
 // Random Weight between 1 and 10 
 const randomWeight = () => Math.floor(Math.random() * 10) + 1
 
-let nextWeight = randomWeight()
+// let nextWeight = randomWeight()
+const randomWeightBall = () => {
+    return {
+        weight: randomWeight(),
+        color: randomColorGenerator()
+    }
+}
+
+let nextWeight = randomWeightBall()
+
 
 // Torque Logic
 const computeTorque = (x, weight, plankWitdh = 400) => {
@@ -25,7 +37,7 @@ const computeRotation = () => {
     return angle
 }
 
-const createWeightElement = (x, weight, className) => {
+const createWeightElement = (x, weight, color, className) => {
     const element = document.createElement('div')
     element.classList.add(className)
 
@@ -34,7 +46,7 @@ const createWeightElement = (x, weight, className) => {
     element.style.width = `${15 + weight * 3}px`
     element.style.height = `${15 + weight * 3}px`
     
-    element.style.backgroundColor = randomColorGenerator()
+    element.style.backgroundColor = color
 
     // Text Styling
     element.textContent = weight
@@ -53,7 +65,7 @@ const handlePlankHover = () => {
         const x = event.clientX - rect.left
 
         if (!previewEl) {
-            previewEl = createWeightElement(x, nextWeight, "weight-hover")
+            previewEl = createWeightElement(x, nextWeight.weight, nextWeight.color , "weight-hover")
             plank.appendChild(previewEl)
         }
         // Update preview position
@@ -72,12 +84,45 @@ const handlePlankHoverEnd = () => {
     }
 }
 
+const updateStats = (x, weight, color, angle) => {
+    if (x > 200) {
+        rightWeight += weight
+        document.getElementById("right-weight-value").textContent = rightWeight
+        updateHistory(x, weight, "right", color)
+    }
+    else if (x < 200) {
+        leftWeight += weight
+        document.getElementById("left-weight-value").textContent = leftWeight
+        updateHistory(x, weight, "left", color)
+    } 
+    else {
+        console.log("Weight is in the center!")
+        updateHistory(x, weight, "center", color)
+    }
+    document.getElementById("angle-value").textContent = angle + "°"
+}
+
+const updateHistory = (x, weight, side, color) => {
+    const span = document.createElement("span")
+    span.classList.add("history-item")
+    span.textContent = `📦 ${weight}kg dropped on the ${side} side, ${x-200}px from the center`
+    span.style.borderColor = color
+    history.prepend(span)
+}
+
+const updateNextWeightStat = (weight, color) => {
+    document.getElementById("next-weight-value").textContent = weight
+    document.getElementById("next-weight-value").style.color = color
+}
+
+updateNextWeightStat(nextWeight.weight, nextWeight.color)
+
 const handlePlankClick = () => {
     const plankStyle = plank.style
     plank.addEventListener('click', (event) => {
-        const x = event.clientX - rect.left
-
         if (!previewEl) return;
+
+        const x = event.clientX - rect.left
 
         previewEl.classList.remove('weight-hover')
         previewEl.classList.add('weight')
@@ -85,15 +130,20 @@ const handlePlankClick = () => {
         previewEl = null
 
         // Update physics & Apply rotation
-        const torque = computeTorque(x, nextWeight)
+        const torque = computeTorque(x, nextWeight.weight)
         totalTorque += torque
         const rotation = computeRotation()
         plankStyle.transform = `rotate(${rotation}deg)`
 
-        console.log({totalTorque, rotation, lastAddedWeight: nextWeight})
+        updateStats(x, nextWeight.weight, nextWeight.color, rotation)
+
+        console.log({totalTorque, rotation, lastAddedWeight: nextWeight.weight, color: nextWeight.color})
 
         // Next turn
-        nextWeight = randomWeight()
+        nextWeight = randomWeightBall()
+
+        updateNextWeightStat(nextWeight.weight, nextWeight.color)
+
     })
 }
 
