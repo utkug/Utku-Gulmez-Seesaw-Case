@@ -37,8 +37,10 @@ body {
     border-radius: 20px;
     background-color: #502b04ff;
     transition: transform 0.4s ease-out;
+    transition-delay: 0.4s; /* Rotate after weight falls */
 }
 
+/* Pivot triangle under the plank */
 .seesaw-pivot {
   width: 0; 
   height: 0; 
@@ -49,16 +51,19 @@ body {
 
 .weight {
     position: absolute;
-    bottom: 20px;
+    bottom: 20px; /* stay on pivot */
     background-color: gold;
     border-radius: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* center horizontally */
+    
+    transition: bottom 0.5s ease-in; 
 }
 
 .weight-hover {
     position: absolute;
-    bottom: 50px;
+    bottom: 50px; /* start higher for preview */
+    opacity: 0.5;
     background-color: gold;
     border-radius: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* center horizontally */
 }

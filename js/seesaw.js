@@ -73,8 +73,12 @@ const handlePlankClick = () => {
     plank.addEventListener('click', (event) => {
         const x = event.clientX - rect.left
 
-        const weightEl = createWeightElement(x, nextWeight, "weight")
-        plank.appendChild(weightEl)
+        if (!previewEl) return;
+
+        previewEl.classList.remove('weight-hover')
+        previewEl.classList.add('weight')
+
+        previewEl = null
 
         // Update physics & Apply rotation
         const torque = computeTorque(x, nextWeight)
