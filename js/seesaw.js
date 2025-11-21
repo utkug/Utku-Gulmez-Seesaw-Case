@@ -4,6 +4,8 @@ let previewEl = null
 const plank = document.querySelector(".seesaw-plank")
 const rect = plank.getBoundingClientRect()
 
+const randomColorGenerator = () => '#' + Math.floor(Math.random()*16777215).toString(16)
+
 // Random Weight between 1 and 10 
 const randomWeight = () => Math.floor(Math.random() * 10) + 1
 
@@ -31,6 +33,8 @@ const createWeightElement = (x, weight, className) => {
     element.style.left = `${x}px`
     element.style.width = `${15 + weight * 3}px`
     element.style.height = `${15 + weight * 3}px`
+    
+    element.style.backgroundColor = randomColorGenerator()
 
     // Text Styling
     element.textContent = weight
