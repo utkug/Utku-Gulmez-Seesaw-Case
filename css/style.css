@@ -138,3 +138,39 @@ body {
     border-left: 5px solid DarkCyan;
     padding-left: 5px;
 }
+
+.reset-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    
+    /* Size */
+    padding: 6px 16px;
+    border-radius: 20px;
+    
+    /* Glass Effect */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    
+    /* Animation */
+    transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+    background: rgba(255, 82, 82, 0.15);
+    border-color: rgba(255, 82, 82, 0.5);
+    color: white;
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 15px rgba(255, 82, 82, 0.2); 
+}
+
+.reset-button:active {
+    transform: translateY(0);
+    background: rgba(255, 82, 82, 0.3);
+}

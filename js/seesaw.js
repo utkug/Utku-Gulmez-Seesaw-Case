@@ -2,10 +2,12 @@ let totalTorque = 0
 let previewEl = null
 let rightWeight = 0
 let leftWeight = 0
+let seesawState = []
 
 const history = document.getElementById("history")
 const plank = document.querySelector(".seesaw-plank")
 const rect = plank.getBoundingClientRect()
+const plankStyle = plank.style
 
 const randomColorGenerator = () => '#' + Math.floor(Math.random()*16777215).toString(16)
     
@@ -117,8 +119,15 @@ const updateNextWeightStat = (weight, color) => {
 
 updateNextWeightStat(nextWeight.weight, nextWeight.color)
 
+const updatePhysicsAndRotation = (x, weight) => {
+    const torque = computeTorque(x, weight)
+    totalTorque += torque
+    const rotation = computeRotation()
+    plankStyle.transform = `rotate(${rotation}deg)`
+    return rotation
+}
+
 const handlePlankClick = () => {
-    const plankStyle = plank.style
     plank.addEventListener('click', (event) => {
         if (!previewEl) return;
 
@@ -129,12 +138,19 @@ const handlePlankClick = () => {
 
         previewEl = null
 
-        // Update physics & Apply rotation
-        const torque = computeTorque(x, nextWeight.weight)
-        totalTorque += torque
-        const rotation = computeRotation()
-        plankStyle.transform = `rotate(${rotation}deg)`
+        // Update physics & Apply rotation & Returns rotation
+        const rotation = updatePhysicsAndRotation(x, nextWeight.weight)
 
+        // Save new weight for local storage
+        const newWeight = {
+            x,
+            weight: nextWeight.weight,
+            color: nextWeight.color
+        }
+        seesawState.push(newWeight)
+        storeStateOfSeesaw(seesawState)
+
+        // Update stats after putting the new weight
         updateStats(x, nextWeight.weight, nextWeight.color, rotation)
 
         console.log({totalTorque, rotation, lastAddedWeight: nextWeight.weight, color: nextWeight.color})
@@ -147,5 +163,52 @@ const handlePlankClick = () => {
     })
 }
 
+const initSeesawState = () => {
+    const savedSeesawState = getStateOfSeesaw()
+
+    if (savedSeesawState && savedSeesawState.length > 0) {
+        seesawState = savedSeesawState
+
+        savedSeesawState.forEach(item => {
+            const weightEl = createWeightElement(item.x, item.weight, item.color, "weight")
+            plank.append(weightEl)
+            // Update physics & Apply rotation & Returns rotation
+            const rotation = updatePhysicsAndRotation(item.x, item.weight)
+            updateStats(item.x, item.weight, item.color, rotation)
+        })
+    }
+}
+
+const resetSeesaw = () => {
+    // Clear local storage
+    resetStateOfSeesaw()
+
+    // Zero variables
+    leftWeight = 0
+    rightWeight = 0
+    totalTorque = 0
+    seesawState = []
+    
+    // Clear stats
+    document.getElementById("left-weight-value").textContent = "0"
+    document.getElementById("right-weight-value").textContent = "0"
+    document.getElementById("angle-value").textContent = "0°"
+
+    // Clear plank from weights
+    plank.innerHTML = ''
+
+    // Clear history
+    history.innerHTML = ''
+
+    // Reset the plank
+    plankStyle.transform = "rotate(0deg)"
+
+    // Reset the next weight
+    nextWeight = randomWeightBall()
+    updateNextWeightStat(nextWeight.weight, nextWeight.color)
+
+}
+
 handlePlankClick()
 handlePlankHover()
+initSeesawState()
