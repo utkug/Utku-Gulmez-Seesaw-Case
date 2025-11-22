@@ -58,6 +58,11 @@ const createWeightElement = (x, weight, color, className) => {
     element.style.fontSize = "16px"
     element.style.fontWeight = "bold"
 
+    element.innerHTML = `
+        <span>${weight}</span>
+        <span class="distance-label">${x-200}px</span>
+    `
+
     return element
 }
 
@@ -72,6 +77,12 @@ const handlePlankHover = () => {
         }
         // Update preview position
         previewEl.style.left = `${x}px`
+
+        // Update distance label
+        const distanceLabel = previewEl.querySelector('.distance-label')
+        if (distanceLabel) {
+            distanceLabel.textContent = `${x-200}px`
+        }
     })
 
     // Remove preview element when:
