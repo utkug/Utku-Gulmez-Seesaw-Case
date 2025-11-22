@@ -1,196 +1,210 @@
 body {
-    background: linear-gradient(180deg,#071026 0%, #071226 100%);
-    margin: 0;
-    font-family: 'Segoe UI';
+  background: linear-gradient(180deg, #071026 0%, #071226 100%);
+  margin: 0;
+  font-family: "Segoe UI";
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    gap: 10px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .seesaw-playground {
-    position: relative;
-    padding: 2em;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03);
-    border-radius: 30px;
-    width: 500px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+  position: relative;
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 30px;
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .box-title {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    pointer-events: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  pointer-events: none;
 }
 
 .seesaw-plank {
-    position: relative;
-    width: 400px;
-    height: 20px;
-    border-radius: 20px;
-    background-color: #502b04ff;
-    transition: transform 0.4s ease-out;
-    transition-delay: 0.4s; /* Rotate after weight falls */
+  position: relative;
+  width: 400px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: #502b04ff;
+  transition: transform 0.4s ease-out;
+  transition-delay: 0.4s; /* Rotate after weight falls */
 }
 
 /* Pivot triangle under the plank */
 .seesaw-pivot {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 40px solid transparent;
   border-right: 40px solid transparent;
   border-bottom: 40px solid white;
 }
 
 .weight {
-    position: absolute;
-    bottom: 20px; /* stay on pivot */
-    background-color: gold;
-    border-radius: 50%;
-    transform: translateX(-50%); /* center horizontally */
-    
-    transition: bottom 0.5s ease-in; 
+  position: absolute;
+  bottom: 20px; /* stay on pivot */
+  background-color: gold;
+  border-radius: 50%;
+  transform: translateX(-50%); /* center horizontally */
+
+  transition: bottom 0.5s ease-in;
 }
 
 .weight-hover {
-    position: absolute;
-    bottom: 50px; /* start higher for preview */
-    opacity: 0.5;
-    background-color: gold;
-    border-radius: 50%;
-    transform: translateX(-50%); /* center horizontally */
+  position: absolute;
+  bottom: 50px; /* start higher for preview */
+  opacity: 0.5;
+  background-color: gold;
+  border-radius: 50%;
+  transform: translateX(-50%); /* center horizontally */
 }
 
-
 .side-boxes {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* spacing between two side boxes */
-    width: 300px;
-    height: 466px; /* same height as seesaw playground */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* spacing between two side boxes */
+  width: 300px;
+  height: 466px; /* same height as seesaw playground */
 }
 
 /* Each side box takes half of the container height */
 .side-box {
-    position: relative;
-    flex: 1; /* fills half of the container height */
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.03);
-    border-radius: 30px;
+  position: relative;
+  flex: 1; /* fills half of the container height */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 30px;
 }
 
 .stats {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .stats-item {
-    padding: 0 15px 0 15px;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    color: white;
+  padding: 0 15px 0 15px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  color: white;
 }
 
 .stat-title {
-    font-size: 16px;
-    color: gray;
+  font-size: 16px;
+  color: gray;
 }
 
 .stat-value {
-    font-size: 27px;
-    font-weight: bold;
+  font-size: 27px;
+  font-weight: bold;
 }
 
 .history {
-    margin-top: 50px;
-    padding: 0 15px 0 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-height: 160px;
-    overflow-y: auto; /* scroll for history */
-    scrollbar-color: white #071026;
-    scrollbar-width: thin;
+  margin-top: 50px;
+  padding: 0 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 160px;
+  overflow-y: auto; /* scroll for history */
+  scrollbar-color: white #071026;
+  scrollbar-width: thin;
 }
 
 .history-item {
-    color: white;
-    font-size: 14px;
-    border-left: 5px solid DarkCyan;
-    padding-left: 5px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-    transition: 0.2s;
+  color: white;
+  font-size: 14px;
+  border-left: 5px solid DarkCyan;
+  padding-left: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  transition: 0.2s;
 }
 
 .history-item:hover {
-    background: rgba(0,0,0,0.35);
-    transform: translateX(3px);
+  background: rgba(0, 0, 0, 0.35);
+  transform: translateX(3px);
 }
 
 .reset-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    
-    /* Size */
-    padding: 6px 16px;
-    border-radius: 20px;
-    
-    /* Glass Effect */
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.7);
-    
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    
-    /* Animation */
-    transition: all 0.3s ease;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  /* Size */
+  padding: 6px 16px;
+  border-radius: 20px;
+
+  /* Glass Effect */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+
+  /* Animation */
+  transition: all 0.3s ease;
 }
 
 .reset-button:hover {
-    background: rgba(255, 82, 82, 0.15);
-    border-color: rgba(255, 82, 82, 0.5);
-    color: white;
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 15px rgba(255, 82, 82, 0.2); 
+  background: rgba(255, 82, 82, 0.15);
+  border-color: rgba(255, 82, 82, 0.5);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 82, 82, 0.2);
 }
 
 .reset-button:active {
-    transform: translateY(0);
-    background: rgba(255, 82, 82, 0.3);
+  transform: translateY(0);
+  background: rgba(255, 82, 82, 0.3);
 }
 
 .distance-label {
-    position: absolute;
-    bottom: -20px; /* Under the weight */
-    left: 50%;
-    transform: translateX(-50%);
-    
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: normal;
-    pointer-events: none;
+  position: absolute;
+  bottom: -20px; /* Under the weight */
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: normal;
+  pointer-events: none;
 }
