@@ -1,3 +1,7 @@
+// Audio
+const dropSound = new Audio("audio/drop.mp3") 
+dropSound.volume = 0.5
+
 let totalTorque = 0
 let previewEl = null
 let rightWeight = 0
@@ -148,6 +152,12 @@ const handlePlankClick = () => {
         previewEl.classList.add('weight')
 
         previewEl = null
+
+        // Audio plays after weight drops
+        setTimeout(() => {
+            dropSound.currentTime = 0
+            dropSound.play()
+        }, 350)
 
         // Update physics & Apply rotation & Returns rotation
         const rotation = updatePhysicsAndRotation(x, nextWeight.weight)
